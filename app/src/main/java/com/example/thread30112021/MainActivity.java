@@ -13,20 +13,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Thread thread = new Thread(new Runnable() {
+        Thread threadA = new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.d("BBB",Thread.currentThread().getName());
+                printLog("A");
             }
         });
 
-        thread.start();
-
-        new Handler().postDelayed(new Runnable() {
+        Thread threadB = new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.d("BBB",thread.getState().toString());
+                printLog("B");
             }
-        },500);
+        });
+        threadA.start();
+        threadB.start();
+    }
+    private void printLog(String text){
+        for (int i = 0; i < 100 ; i++) {
+            Log.d("BBB",text + " : " + i);
+        }
     }
 }
