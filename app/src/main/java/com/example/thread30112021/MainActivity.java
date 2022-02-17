@@ -28,10 +28,23 @@ public class MainActivity extends AppCompatActivity {
         });
         threadA.start();
         threadB.start();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("CCC",threadA.getState().toString());
+                Log.d("CCC",threadB.getState().toString());
+            }
+        },2000);
     }
-    private void printLog(String text){
+    private synchronized void printLog(String text){
         for (int i = 0; i < 100 ; i++) {
             Log.d("BBB",text + " : " + i);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
